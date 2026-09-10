@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Search Example with Flask</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='search-result.css') }}">
+</head>
+<body>
+    <h1>Search Example with Flask</h1>
+    <form method="POST" action="/search">
+        <input type="text" name="searchInput"
+               placeholder="Enter your search term">
+        <button type="submit">Search</button>
+    </form>
+    <!--Hiện dữ liệu nếu searchtext không rỗng-->
+    <p>
+        {% if search_text %}
+        You searched for: {{ search_text }}
+        {% endif %}
+    </p>
+</body>
+</html>

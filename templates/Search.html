@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Search Example</title>
+
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='style_table_dataframe.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='search-result.css') }}">
+</head>
+<body>
+<div class="page">
+
+    <h1>Search</h1>
+
+    <form method="POST" action="/search">
+        <input type="text"
+               name="searchInput"
+               placeholder="Enter your search term"
+               value="{{ search_text }}">
+        <button type="submit">Search</button>
+    </form>
+
+    {% if search_text %}
+        <div class="your-search">
+            Your search: <span>{{ search_text }}</span>
+        </div>
+
+        {{ table|safe }}
+    {% endif %}
+
+    <p class="logout"><a href="/logout">Logout</a></p>
+</div>
+</body>
+</html>

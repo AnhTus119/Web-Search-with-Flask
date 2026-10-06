@@ -1,26 +1,31 @@
+/* Style for the table */
 .dataframe {
-    border-collapse: collapse;
-    width: 100%;
-    border: 1px solid #ddd;
+  border-collapse: collapse;
+  width: 100%;
+  border: 1px solid #ddd;
 }
 
+/* Style for table headers */
 .dataframe th {
-    background-color: #f2f2f2;
-    text-align: left;
-    padding: 8px;
-    border: 1px solid #ddd;
+  background-color: #f2f2f2;
+  text-align: left;
+  padding: 8px;
+  border: 1px solid #ddd;
 }
 
+/* Style for table data cells */
 .dataframe td {
-    text-align: left;
-    padding: 8px;
-    border: 1px solid #ddd;
+  text-align: left;
+  padding: 8px;
+  border: 1px solid #ddd;
 }
 
+/* Style for alternating row colors */
 .dataframe tr:nth-child(even) {
-    background-color: #f2f2f2;
+  background-color: #f2f2f2;
 }
 
+/* Hover effect on rows */
 .dataframe tr:hover {
-    background-color: #ddd;
+  background-color: #ddd;
 }

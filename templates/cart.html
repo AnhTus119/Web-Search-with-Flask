@@ -1,0 +1,53 @@
+{% extends "base.html" %}
+{% block title %}Giỏ hàng{% endblock %}
+{% block content %}
+<div class="page-heading">
+    <div><p class="eyebrow">Bước 2</p><h1>Giỏ hàng của bạn</h1></div>
+    <a class="button secondary" href="{{ url_for('index') }}">Tiếp tục mua</a>
+</div>
+
+{% if carts %}
+<form action="{{ url_for('update_cart_v2') }}" method="POST">
+    <div class="table-wrap">
+        <table>
+            <thead><tr><th>Sản phẩm</th><th>Đơn giá</th><th>Số lượng</th><th>Thành tiền</th><th></th></tr></thead>
+            <tbody>
+            {% for product in carts %}
+            <tr>
+                <td><strong>{{ product['name'] }}</strong><br><small>Mã #{{ product['id'] }}</small></td>
+                <td>{{ product['price']|vnd }}</td>
+                <td><input class="quantity-input" type="number" name="quantity_{{ product['id'] }}" value="{{ product['quantity'] }}" min="0"></td>
+                <td><strong>{{ (product['price'] * product['quantity'])|vnd }}</strong></td>
+                <td class="row-actions">
+                    <button class="link-button" type="submit"
+                            formaction="{{ url_for('update_cart', product_id=product['id']) }}"
+                            formmethod="POST">Cập nhật</button>
+                    <button class="link-button danger" type="submit" form="remove-{{ product['id'] }}">Xóa</button>
+                </td>
+            </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+    </div>
+    <div class="cart-actions">
+        <p>Nhập 0 để xóa một sản phẩm.</p>
+        <button class="secondary" type="submit">Cập nhật toàn bộ</button>
+    </div>
+</form>
+{% for product in carts %}
+<form id="remove-{{ product['id'] }}" action="{{ url_for('remove_from_cart', product_id=product['id']) }}" method="POST"></form>
+{% endfor %}
+
+<aside class="summary-card">
+    <div><span>Tổng số lượng</span><strong>{{ total_quantity }}</strong></div>
+    <div class="summary-total"><span>Tổng thanh toán</span><strong>{{ total_price|vnd }}</strong></div>
+    <a class="button" href="{{ url_for('checkout') }}">Tiến hành thanh toán</a>
+</aside>
+{% else %}
+<div class="empty-state">
+    <h2>Giỏ hàng đang trống</h2>
+    <p>Hãy chọn một sản phẩm phù hợp để bắt đầu đơn hàng.</p>
+    <a class="button" href="{{ url_for('index') }}">Khám phá sản phẩm</a>
+</div>
+{% endif %}
+{% endblock %}

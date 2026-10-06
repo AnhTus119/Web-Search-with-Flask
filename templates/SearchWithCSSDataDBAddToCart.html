@@ -1,0 +1,31 @@
+{% extends "base.html" %}
+{% block title %}Search Example with Flask{% endblock %}
+{% block content %}
+<section class="catalog-toolbar">
+    <form class="catalog-search" method="GET" action="{{ url_for('search_data') }}">
+        <input type="search" name="searchInput" value="{{ search_text }}" placeholder="Enter your search term">
+        <button type="submit">Search</button>
+    </form>
+    {% if search_text %}<p>You searched for: {{ search_text }}</p>{% endif %}
+</section>
+
+<div class="sample-product-grid">
+    {% for product in products %}
+    <article class="sample-product-item">
+        <h2>{{ product['model'] }}</h2>
+        <div class="sample-image-wrap">
+            <img src="{{ product['picture'] }}" alt="{{ product['model'] }}">
+        </div>
+        <p class="sample-details">{{ product['details'] }}</p>
+        <p class="sample-price">Giá: {{ product['price']|vnd }}</p>
+        <form class="sample-add-form" action="{{ url_for('add_to_cart') }}" method="POST">
+            <input type="hidden" name="product_id" value="{{ product['id'] }}">
+            <input type="number" name="quantity" value="1" min="1" max="{{ product['stock'] }}" required>
+            <button type="submit">Add to cart</button>
+        </form>
+    </article>
+    {% else %}
+    <p class="no-products">No products found.</p>
+    {% endfor %}
+</div>
+{% endblock %}
